@@ -22,6 +22,8 @@
     },
     "dependencies": {
         "axios": "^0.27.2",
+        "axios-oauth-client": "^1.5.0",
+        "axios-token-interceptor": "^0.2.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.4.1"
