@@ -43,23 +43,25 @@ const AutocompleteMUI = () => {
   return (
     <>
       <div>
-        <Stack spacing={2} sx={{ width: 300 }}>
-          <Autocomplete
-            id="combo-box-demo"
-            options={albums}
-            getOptionLabel={(option) => option.title}
-            style={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Combo box"
-                variant="outlined"
-                fullWidth
-                onChange={handleChange}
-              />
-            )}
-          />
-        </Stack>
+        <Autocomplete
+          id="search_freesolo"
+          freeSolo
+          selectOnFocus
+          clearOnBlur
+          handleHomeEndKeys
+          autoHighlight
+          options={albums}
+          getOptionLabel={(option) => option.title}
+          style={{ width: 1000 }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Combo box"
+              variant="outlined"
+              onChange={handleChange}
+            />
+          )}
+        />
       </div>
       <div>
         {albums.map((album) => (
