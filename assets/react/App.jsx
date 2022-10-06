@@ -1,22 +1,25 @@
 import React from 'react';
-import './styles/App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Nav from './components/nav';
-
-// import Search from './components/Search.jsx';
-import AlbumSearch from './components/AlbumSearch';
+import Home from './components/Home.jsx';
+import AutocompleteMUI from './components/AutocompleteMUI';
+import About from './components/About';
+import Error from './components/Error';
+import './styles/App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Vinyl Bin</h1>
+    <Router>
+      <div className="App">
         <Nav />
-      </header>
-      <div>
-        {/* <Search /> */}
-        <AlbumSearch />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/autocompleteMUI" element={<AutocompleteMUI />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/error" element={<Error />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 

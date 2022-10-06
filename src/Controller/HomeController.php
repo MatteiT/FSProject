@@ -12,8 +12,25 @@ class HomeController extends AbstractController
 
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        return $this->render('home/index.html.twig');
     }
+
+    #[Route('/about', name: 'app_about')]
+    public function about(): Response
+    {
+        return $this->render('home/index.html.twig');
+    }
+
+    #[Route('/error', name: 'app_contact')] 
+    public function error(): Response
+    {
+        return $this->render('home/index.html.twig');
+    }
+
+    #[Route('/autocompleteMUI', name: 'app_contact')] 
+    public function contact(): Response
+    {
+        return $this->render('home/index.html.twig');
+    }
+
 }
