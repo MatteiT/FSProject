@@ -8,6 +8,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    /**
+     * @Route("/", name="home")
+     */
+
     #[Route('/', name: 'app_home')]
 
     public function index(): Response
@@ -21,13 +25,13 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig');
     }
 
-    #[Route('/error', name: 'app_contact')] 
+    #[Route('/error', name: 'app_error')] 
     public function error(): Response
     {
         return $this->render('home/index.html.twig');
     }
 
-    #[Route('/autocompleteMUI', name: 'app_contact')] 
+    #[Route('/autocompleteMUI', name: 'app_autocompleteMUI')] 
     public function contact(): Response
     {
         return $this->render('home/index.html.twig');
