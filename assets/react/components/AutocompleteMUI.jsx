@@ -1,4 +1,5 @@
 import React from 'react';
+import Slider from './Slider';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -7,10 +8,12 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Card from '@mui/material/Card';
 import axios from 'axios';
 import { Stack } from '@mui/system';
+import SellSharpIcon from '@mui/icons-material/SellSharp';
+import AudiotrackSharpIcon from '@mui/icons-material/AudiotrackSharp';
 import {
   CardActionArea,
-  CardContent,
   CardMedia,
+  Chip,
   Typography,
 } from '@mui/material';
 
@@ -18,6 +21,7 @@ const AutocompleteMUI = () => {
   const [albums, setAlbums] = React.useState([]);
   const [search, setSearch] = React.useState('Fatboy Slim');
   const [page, setPage] = React.useState(1);
+
   const urlDiscogs = 'https://www.discogs.com/artist/';
 
   React.useEffect(() => {
@@ -37,7 +41,7 @@ const AutocompleteMUI = () => {
   return (
     <>
       <Stack spacing={4}>
-        <div>
+
           <Autocomplete
             id="search_freesolo"
             freeSolo
@@ -52,28 +56,24 @@ const AutocompleteMUI = () => {
                 label="Search input"
                 autoFocus={true}
                 placeholder="Search for an album or artist here ..."
-                margin="normal"
                 variant="outlined"
                 onChange={handleChange}
               />
             )}
           />
-        </div>
-        <div>
-          <Grid
-            container
-            spacing={2}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-            sx={{ width: '100%' }}
-          >
+
+        {/* <Slider  /> */}
+        <section>
+          <Grid container spacing={2}>
+
+
             {albums.map((album) => (
-              <Grid item key={album.id} height="600">
+              <Grid item key={album.id}>
                 <Card>
                   <CardActionArea>
                     <CardMedia
                       component="img"
                       image={album.cover_image}
-                      height="300"
                     />
                     <Typography gutterBottom variant="h5" component="div">
                       {album.title}
@@ -81,13 +81,13 @@ const AutocompleteMUI = () => {
                     <Typography variant="span" color="text.secondary">
                       {album.genre &&
                         album.genre.map((genre, index) => (
-                          <p key={index}>{genre}</p>
+                          <Chip key={index} label={genre} icon={<AudiotrackSharpIcon/> }/>
                         ))}
                     </Typography>
                     <Typography variant="subtitle2" color="text.secondary">
                       {album.style &&
                         album.style.map((style, index) => (
-                          <p key={index}>{style}</p>
+                          <Chip key={index} size="small" label={style} icon={<SellSharpIcon/>} />
                         ))}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
@@ -98,8 +98,9 @@ const AutocompleteMUI = () => {
               </Grid>
             ))}
           </Grid>
-        </div>
+        </section >
       </Stack>
+
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button variant="contained" onClick={() => setPage(page - 1)}>
           Prev

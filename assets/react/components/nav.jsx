@@ -1,24 +1,30 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import {
+  AppBar,
+  Toolbar,
+  CssBaseline,
+  Typography,
+} from '@mui/material';
 
 const Nav = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="/autocompleteMUI">Autocomplete</NavLink>
-        </li>
-        <li>
-          <NavLink to="/about">About</NavLink>
-        </li>
-        <li>
-          <NavLink to="/error">Error</NavLink>
-        </li>
-      </ul>
-    </nav>
+    <>
+      <CssBaseline />
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <NavLink to="/">Home</NavLink>
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <NavLink to="/autocompleteMUI">Autocomplete</NavLink>
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <NavLink to="/about">About</NavLink>
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </>
   );
 };
 
