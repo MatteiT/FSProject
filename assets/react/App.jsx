@@ -5,20 +5,25 @@ import Home from './components/Home.jsx';
 import AutocompleteMUI from './components/AutocompleteMUI';
 import About from './components/About';
 import Error from './components/Error';
-import './styles/App.css';
+import Collection from './components/Collection';
+import Banner from './components/Banner';
+
+
+
+
 
 function App() {
   return (
     <Router>
-      <div className="App">
+        <Banner />
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/autocompleteMUI" element={<AutocompleteMUI />} />
+          <Route path="/collection" element={<Collection />} />
           <Route path="/about" element={<About />} />
-          <Route path="/error" element={<Error />} />
+          <Route path="*" element={<Error />} />
         </Routes>
-      </div>
     </Router>
   );
 }

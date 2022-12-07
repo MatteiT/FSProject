@@ -1,38 +1,49 @@
 import React from 'react';
-import Slider from './Slider';
+import { useState, useEffect, useContext } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
-import Card from '@mui/material/Card';
 import axios from 'axios';
 import { Stack } from '@mui/system';
 import SellSharpIcon from '@mui/icons-material/SellSharp';
 import AudiotrackSharpIcon from '@mui/icons-material/AudiotrackSharp';
 import {
-  CardActionArea,
+  TextField,
+  Button,
+  Box,
+  Card,
   CardMedia,
   Chip,
   Typography,
 } from '@mui/material';
+import DeleteIcon  from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import { AppContext } from '../context/AppContext';
+import LinearProgress from '@mui/material/LinearProgress';
+
 
 const AutocompleteMUI = () => {
-  const [albums, setAlbums] = React.useState([]);
-  const [search, setSearch] = React.useState('Fatboy Slim');
-  const [page, setPage] = React.useState(1);
-
+  const  [loading, setLoading, search, setSearch, error, setError, page, setPage] = useContext(AppContext);
+  const [albums, setAlbums] = useState([]);
   const urlDiscogs = 'https://www.discogs.com/artist/';
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function fetchData() {
+      try {
+        setLoading(true);
+        setError(null);
       const res = await axios.get(
         `https://api.discogs.com/database/search?q=${search}&token=qALItICfHYUDyaIegejpMxJlRDjVmjxBxfkwgbCi&page=${page}`
       );
       setAlbums(res.data.results);
     }
+    catch (error) {
+      setError(error);
+    }
+    setLoading(false);
+    }
     fetchData();
   }, [search, page]);
+
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -40,8 +51,9 @@ const AutocompleteMUI = () => {
 
   return (
     <>
-      <Stack spacing={4}>
-
+      <Stack spacing={1} margin={1}>
+    <section className="search">
+        <Box sx={{ flexGrow: 1 }}>
           <Autocomplete
             id="search_freesolo"
             freeSolo
@@ -61,54 +73,66 @@ const AutocompleteMUI = () => {
               />
             )}
           />
+        {loading && <div><LinearProgress /></div> }
+        {error && <div>{error.message}</div>}
+        {albums.length === 0 && !loading && <div>No results found</div>}
+        </Box>
+        </section>
 
-        {/* <Slider  /> */}
-        <section>
-          <Grid container spacing={2}>
+          <section className="results">
 
 
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={0.5} >
             {albums.map((album) => (
-              <Grid item key={album.id}>
-                <Card>
-                  <CardActionArea>
+              <Grid item key={album.id} >
+                <Card 
+                variant='outlined'
+                height='300px' 
+                width='300px'
+                sx={{ maxWidth: 345, maxHeight: 345, minWidth: 345, minHeight: 345, margin: 1, padding: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <CardMedia
                       component="img"
                       image={album.cover_image}
+                      height="140"width="140" 
+                      alt={album.title}
                     />
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h5" component="div" align='center'>
                       {album.title}
                     </Typography>
-                    <Typography variant="span" color="text.secondary">
+                    <Box sx={{ display: 'flex', justifyContent: 'center'  }}>
                       {album.genre &&
                         album.genre.map((genre, index) => (
-                          <Chip key={index} label={genre} icon={<AudiotrackSharpIcon/> }/>
+                          <Chip key={index} size="small" label={genre} icon={<AudiotrackSharpIcon/> }/>
                         ))}
-                    </Typography>
-                    <Typography variant="subtitle2" color="text.secondary">
                       {album.style &&
                         album.style.map((style, index) => (
                           <Chip key={index} size="small" label={style} icon={<SellSharpIcon/>} />
                         ))}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      <a href={`${urlDiscogs}${album.id}`}>view on Discogs </a>
-                    </Typography>
-                  </CardActionArea>
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'center'  }}>
+                    <Button variant="contained" size='small' >
+                      <a href={`${urlDiscogs}${album.id}`}>view on Discogs</a>
+                    </Button>
+                    <br/> 
+                    <Button  variant="contained"  size='small' color="error" startIcon={<SaveIcon />} >Add </Button>
+                    <Button variant="contained"  size='small' startIcon={<DeleteIcon /> }>Delete</Button> 
+                    </Box>
                 </Card>
               </Grid>
             ))}
           </Grid>
-        </section >
-      </Stack>
-
+      </Box>
+      </section>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button variant="contained" onClick={() => setPage(page - 1)}>
           Prev
-        </Button>
+        </Button>;
         <Button variant="contained" onClick={() => setPage(page + 1)}>
           Next
-        </Button>
+        </Button>;
       </Box>
+      </Stack>
     </>
   );
 };

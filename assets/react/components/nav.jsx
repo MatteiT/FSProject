@@ -1,27 +1,46 @@
 import React from 'react';
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   AppBar,
+  Box,
   Toolbar,
-  CssBaseline,
-  Typography,
 } from '@mui/material';
+import { Switch} from '@mui/material';
+import ModeNightIcon from '@mui/icons-material/ModeNight';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import {AppContext} from '../context/AppContext';
+
 
 const Nav = () => {
+  const [darkMode, setDarkMode] = useContext(AppContext);
+
+  const handleDarkmode = () => {
+    setDarkMode(!darkMode);
+  };
+  
+
   return (
     <>
-      <CssBaseline />
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Box variant='outline' sx={{ flexGrow: 1 }}>
             <NavLink to="/">Home</NavLink>
-          </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          </Box>
+        <Box variant='outline' sx={{ flexGrow: 1 }}>
             <NavLink to="/autocompleteMUI">Autocomplete</NavLink>
-          </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          </Box>
+          <Box variant='outline' sx={{ flexGrow: 1 }}>
             <NavLink to="/about">About</NavLink>
-          </Typography>
+          </Box>
+          <Box variant='outline' sx={{ flexGrow: 1 }}>
+            <NavLink to="/collection">Collection</NavLink>
+          </Box>
+          <Switch
+            onClick={() => handleDarkmode()}
+            icon={<Brightness4Icon />}
+            checkedIcon={<ModeNightIcon />}
+          />
         </Toolbar>
       </AppBar>
     </>
