@@ -8,6 +8,8 @@ const appSlice = createSlice({
         error: false,
         page: 1,
         albums: [],
+        hoover: false,
+        modal: false,
 
     },  
     reducers: {
@@ -26,11 +28,17 @@ const appSlice = createSlice({
         setAlbums: (state, action) => {
             state.albums = action.payload
         },
+        setHoover: (state, action) => {
+            state.hoover = action.payload
+        },
+        setModal: (state, action) => {
+            state.modal = action.payload
+        },
     },
 })
 
 
-export const { setLoading, setSearch, setError, setPage, setAlbums } = appSlice.actions
+export const { setLoading, setSearch, setError, setPage, setAlbums, setHoover  } = appSlice.actions
 
 export default appSlice.reducer
 

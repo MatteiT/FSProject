@@ -76,6 +76,8 @@ const Search = () => {
               {albums.map((album) => (
                 <Grid item key={album.id} >
                   <Card 
+                  // onMouseEnter={() => console.log(album)}
+                  // onMouseLeave={() => console.log(album)}
                   variant='outlined'
                   height='300px' 
                   width='300px'
