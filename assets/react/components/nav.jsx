@@ -9,37 +9,38 @@ import { Switch} from '@mui/material';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import { useDispatch, useSelector } from 'react-redux';
-
-
+import { setMode} from '../features/themeSlice';
 
 const Nav = () => {
   const dispatch = useDispatch();
-  const {setDarkmode}= useSelector((state) => state.theme);
+  const mode = useSelector((state) => state.theme.mode);
+
+
 
   return (
     <>
-      <AppBar position="static">
-        <Toolbar>
-          <Box variant='outline' sx={{ flexGrow: 1 }}>
-            <NavLink to="/">Home</NavLink>
-          </Box>
-        <Box variant='outline' sx={{ flexGrow: 1 }}>
-            <NavLink to="/search">Search</NavLink>
-          </Box>
-          <Box variant='outline' sx={{ flexGrow: 1 }}>
-            <NavLink to="/about">About</NavLink>
-          </Box>
-          <Box variant='outline' sx={{ flexGrow: 1 }}>
-            <NavLink to="/collection">Collection</NavLink>
-          </Box>
-          <Switch
-            onChange={() => dispatch(setDarkmode())}
-            icon={<Brightness4Icon />}
-            checkedIcon={<ModeNightIcon />}
-          />
-        </Toolbar>
-      </AppBar>
-    </>
+          <AppBar position="static">
+            <Toolbar>
+              <Box variant='outline' sx={{ flexGrow: 1 }}>
+                <NavLink to="/">Home</NavLink>
+              </Box>
+            <Box variant='outline' sx={{ flexGrow: 1 }}>
+                <NavLink to="/search">Search</NavLink>
+              </Box>
+              <Box variant='outline' sx={{ flexGrow: 1 }}>
+                <NavLink to="/about">About</NavLink>
+              </Box>
+              <Box variant='outline' sx={{ flexGrow: 1 }}>
+                <NavLink to="/collection">Collection</NavLink>
+              </Box>
+              <Switch
+                onChange={() => dispatch(setMode())}
+                label="Toggle Theme"
+                icon={<Brightness4Icon />}
+                checkedIcon={<ModeNightIcon />}
+              />
+            </Toolbar>
+          </AppBar>    </>
   );
 };
 

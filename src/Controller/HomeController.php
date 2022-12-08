@@ -31,10 +31,12 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig');
     }
 
-    #[Route('/autocompleteMUI', name: 'app_autocompleteMUI')] 
+    #[Route('/search', name: 'app_search')]
     public function contact(): Response
     {
         return $this->render('home/index.html.twig');
     }
+
+    
 
 }

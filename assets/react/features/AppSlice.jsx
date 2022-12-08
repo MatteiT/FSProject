@@ -1,13 +1,14 @@
-import { createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const appSlice = createSlice({
     name: 'app',
     initialState: {
         loading: false,
-        search: '',
+        search: 'Daft Punk',
         error: false,
         page: 1,
         albums: [],
+
     },  
     reducers: {
         setLoading: (state, action) => {
@@ -24,9 +25,10 @@ const appSlice = createSlice({
         },
         setAlbums: (state, action) => {
             state.albums = action.payload
-        }
+        },
     },
 })
+
 
 export const { setLoading, setSearch, setError, setPage, setAlbums } = appSlice.actions
 

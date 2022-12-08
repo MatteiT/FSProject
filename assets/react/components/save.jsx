@@ -1,50 +1,3 @@
-import React from 'react';
-import {useEffect} from 'react';
-import Autocomplete from '@mui/material/Autocomplete';
-import Grid from '@mui/material/Unstable_Grid2';
-import { Stack } from '@mui/system';
-import SellSharpIcon from '@mui/icons-material/SellSharp';
-import AudiotrackSharpIcon from '@mui/icons-material/AudiotrackSharp';
-import {
-  TextField,
-  Button,
-  Box,
-  Card,
-  CardMedia,
-  Chip,
-  Typography,
-} from '@mui/material';
-import DeleteIcon  from '@mui/icons-material/Delete';
-import SaveIcon from '@mui/icons-material/Save';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { setAlbums, setSearch } from '../features/AppSlice';
-
-const Search = () => {
-  const dispatch = useDispatch();
-  const { albums, page, search } = useSelector((state) => state.app);
-  const urlDiscogs = 'https://api.discogs.com/artists/';
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await axios.get(
-          `https://api.discogs.com/database/search?q=${search}&token=qALItICfHYUDyaIegejpMxJlRDjVmjxBxfkwgbCi&page=${page}`
-        );
-        dispatch(setAlbums(res.data.results));
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchData();
-  }, [search, page]);
-
-  const onChange = (e) => {
-    dispatch(setSearch(e.target.value));
-  };
-
-  return (
-    <>
 <Stack spacing={1} margin={1}>
       <section className="search">
         <Box sx={{ flexGrow: 1 }}>
@@ -55,7 +8,7 @@ const Search = () => {
             clearOnBlur
             handleHomeEndKeys
             autoHighlight
-            options={albums.map((album) => album.title)}
+            options={albums.map((option) => option.title)}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -63,7 +16,7 @@ const Search = () => {
                 autoFocus={true}
                 placeholder="Search for an album or artist here ..."
                 variant="outlined"
-                onChange={onChange}
+                onChange={handleChange}
               />
             )}
           />
@@ -114,6 +67,7 @@ const Search = () => {
         </Box>
       </section>
 
+       
       <section className="pagination">
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button variant="contained" onClick={() => setPage(page - 1)}>
@@ -124,9 +78,3 @@ const Search = () => {
         </Button>;
       </Box>
       </section>
-      </Stack>
-    </>
-  );
-};
-
-export default Search;
