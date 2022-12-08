@@ -1,5 +1,4 @@
 import React from 'react';
-import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   AppBar,
@@ -9,16 +8,13 @@ import {
 import { Switch} from '@mui/material';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
-import {AppContext} from '../context/AppContext';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 
 const Nav = () => {
-  const [darkMode, setDarkMode] = useContext(AppContext);
-
-  const handleDarkmode = () => {
-    setDarkMode(!darkMode);
-  };
-  
+  const dispatch = useDispatch();
+  const {setDarkmode}= useSelector((state) => state.theme);
 
   return (
     <>
@@ -28,7 +24,7 @@ const Nav = () => {
             <NavLink to="/">Home</NavLink>
           </Box>
         <Box variant='outline' sx={{ flexGrow: 1 }}>
-            <NavLink to="/autocompleteMUI">Autocomplete</NavLink>
+            <NavLink to="/search">Search</NavLink>
           </Box>
           <Box variant='outline' sx={{ flexGrow: 1 }}>
             <NavLink to="/about">About</NavLink>
@@ -37,7 +33,7 @@ const Nav = () => {
             <NavLink to="/collection">Collection</NavLink>
           </Box>
           <Switch
-            onClick={() => handleDarkmode()}
+            onChange={() => dispatch(setDarkmode())}
             icon={<Brightness4Icon />}
             checkedIcon={<ModeNightIcon />}
           />
