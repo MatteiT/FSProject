@@ -20,20 +20,20 @@ function App() {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
   return (
-        <Router>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Banner />
-            <Nav />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/collection" element={<Collection />} />
-              <Route path="/about" element={<About />} />
-              <Route path="*" element={<Error />} />
-            </Routes>
-          </ThemeProvider>
-        </Router>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Banner />
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/collection" element={<Collection />} />
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </ThemeProvider>
+    </Router>
   );
 }
 

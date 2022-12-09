@@ -1,26 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+
+export const fetchAlbums = createAsyncThunk('app/fetchAlbums', async (search,page) => {
+    const response = await axios.get(`https://api.discogs.com/database/search?q=${search}&token=qALItIC
+fHYUDyaIegejpMxJlRDjVmjxBxfkwgbCi&page=${page}`)
+    return response.data.results
+})
+
 
 const appSlice = createSlice({
     name: 'app',
     initialState: {
-        loading: false,
         search: 'Daft Punk',
-        error: false,
         page: 1,
         albums: [],
         hoover: false,
         modal: false,
-
+        hasErrors: false,
+        isLoading: false,
     },  
     reducers: {
-        setLoading: (state, action) => {
-            state.loading = action.payload
-        },
         setSearch: (state, action) => {
             state.search = action.payload
-        },
-        setError: (state, action) => {
-            state.error = action.payload
         },
         setPage: (state, action) => {
             state.page = action.payload
@@ -34,12 +35,30 @@ const appSlice = createSlice({
         setModal: (state, action) => {
             state.modal = action.payload
         },
+        setSearch: (state, action) => {
+            state.search = action.payload
+        },
+
     },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchAlbums.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(fetchAlbums.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.hasErrors = false
+                state.albums = action.payload
+            })
+            .addCase(fetchAlbums.rejected, (state) => {
+                state.isLoading = false
+                state.hasErrors = true
+            })
+    }
 })
 
-
-export const { setLoading, setSearch, setError, setPage, setAlbums, setHoover  } = appSlice.actions
-
+export const { setSearch, setPage, setAlbums, setHoover, setModal } = appSlice.actions
+export const appSelector = (state) => state.app
 export default appSlice.reducer
 
 
