@@ -10,11 +10,11 @@ import ClickModal from './ClickModal';
 
 export default Search = () => {
   const dispatch = useDispatch();
-  const {albums, search, isLoading, page, error } = useSelector((state) => state.app);
+  // const {albums, search, isLoading, page, error } = useSelector((state) => state.app);
 
   useEffect(() => {
     dispatch(fetchAlbums());
-  }, [ dispatch, search, page ]);
+  }, [ dispatch, state.app.search, app.state.page ]);
 
   const onChange = (e) => {
     dispatch(setSearch(e.target.value));
@@ -43,15 +43,14 @@ export default Search = () => {
   return (
     <>
     <Stack direction="row" spacing={2}>
-          {albums.map((album) => {
-            <SearchAuto albums={albums} onChange={onChange}  />
-            return(
-              <>
-            <AlbumsCards key={album.id} album={album} />
-          <ClickModal key={album.id} album={album} />
-          </>)}
-          )}
-          <Pagination page={page} setPage={setPage} />
+      <SearchAuto albums={albums} onChange={onChange}  />
+          {this.props.albums.map((album) => (
+            <>
+            <ClickModal key={album.id}/>
+            <AlbumsCards key={album.id}/>
+            </>
+          ))}
+          <Pagination/>
     </Stack>
     </>
   );
