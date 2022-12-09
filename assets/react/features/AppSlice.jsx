@@ -21,7 +21,7 @@ const appSlice = createSlice({
         hoover: false,
         modal: false,
         isLoading: false,
-        hasError: false,
+        hasErrors: false,
     },  
     reducers: {
         setSearch: (state, action) => {
@@ -61,9 +61,12 @@ const appSlice = createSlice({
     }
 })
 
+
 export const { setSearch, setPage, setAlbums, setHoover, setModal } = appSlice.actions
 export const appSelector = (state) => state.app
 export default appSlice.reducer
+
+
 
 
 

@@ -37,4 +37,25 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    albums: state.app.albums,
+    search: state.app.search,
+    isLoading: state.app.isLoading,
+    page: state.app.page,
+    error: state.app.error
+  }
+}
+
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchAlbums: () => dispatch(fetchAlbums()),
+    setPage: (page) => dispatch(setPage(page)),
+    setSearch: (search) => dispatch(setSearch(search))
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

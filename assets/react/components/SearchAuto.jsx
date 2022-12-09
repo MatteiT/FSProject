@@ -3,6 +3,7 @@ import React from "react";
 import { Box, TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 
+
 const SearchAuto = (albums, {onChange}) => {
 
     return (
@@ -15,7 +16,7 @@ const SearchAuto = (albums, {onChange}) => {
         clearOnBlur
         handleHomeEndKeys
         autoHighlight
-        options={albums.map((option) => option.title)}
+        options={state.app.albums.map((option) => option.title)}
         renderInput={(params) => (
             <TextField
                 {...params}

@@ -1,14 +1,14 @@
 import React from 'react';
 import {useEffect} from 'react';
 import { Stack } from '@mui/system';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { fetchAlbums, setPage, setSearch} from '../features/AppSlice';
 import AlbumsCards from './AlbumsCards';
 import Pagination from './Pagination';
 import SearchAuto from './SearchAuto';
 import ClickModal from './ClickModal';
 
-const Search = () => {
+export default Search = () => {
   const dispatch = useDispatch();
   const {albums, search, isLoading, page, error } = useSelector((state) => state.app);
 
@@ -41,13 +41,12 @@ const Search = () => {
 
 
   return (
-
     <>
     <Stack direction="row" spacing={2}>
           {albums.map((album) => {
+            <SearchAuto albums={albums} onChange={onChange}  />
             return(
               <>
-              <SearchAuto albums={albums} onChange={onChange}  />
             <AlbumsCards key={album.id} album={album} />
           <ClickModal key={album.id} album={album} />
           </>)}
@@ -58,5 +57,9 @@ const Search = () => {
   );
 };
 
-export default Search;
+
+
+
+
+
 
