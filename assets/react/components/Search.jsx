@@ -35,13 +35,14 @@ const Search = () => {
 
     <>
     <Stack direction="row" spacing={2}>
-          <SearchAuto albums={albums} onChange={onChange}  />
-          {/* {albums.map((album) => (
-            <>
+          {albums.map((album) => {
+            return(
+              <>
+              <SearchAuto albums={albums} onChange={onChange}  />
             <AlbumsCards key={album.id} album={album} />
           <ClickModal key={album.id} album={album} />
-          </>
-          ))} */}
+          </>)}
+          )}
           <Pagination page={page} setPage={setPage} />
     </Stack>
     </>

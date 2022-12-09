@@ -3,9 +3,9 @@ import React from "react";
 import { Box, TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 
-const SearchAuto = ({albums}, {onChange}) => {
+const SearchAuto = (albums, {onChange}) => {
 
-    return(
+    return (
 <section className="search">
 <Box sx={{ flexGrow: 1 }}>
     <Autocomplete
