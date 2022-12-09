@@ -15,7 +15,7 @@ const Search = () => {
 
   useEffect(() => {
     dispatch(fetchAlbums());
-  }, []);
+  }, [ dispatch, search, page ]);
 
   const onChange = (e) => {
     dispatch(setSearch(e.target.value));
