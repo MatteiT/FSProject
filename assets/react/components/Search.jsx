@@ -8,10 +8,9 @@ import Pagination from './Pagination';
 import SearchAuto from './SearchAuto';
 import ClickModal from './ClickModal';
 
-
 const Search = () => {
   const dispatch = useDispatch();
-  const {albums, search, isLoading, page } = useSelector((state) => state.app);
+  const {albums, search, isLoading, page, error } = useSelector((state) => state.app);
 
   useEffect(() => {
     dispatch(fetchAlbums());
@@ -30,6 +29,16 @@ const Search = () => {
       </>
     );
   }
+
+  if(error) {
+    return (
+      <>
+      <SearchAuto />
+      <div>Something went wrong...</div>;
+      </>
+    );
+  }
+
 
   return (
 
