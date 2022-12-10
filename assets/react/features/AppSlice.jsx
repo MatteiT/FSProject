@@ -2,12 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const fetchAlbums = createAsyncThunk('app/fetchAlbums', async (search,page) => {
-    try{
     const response = await axios.get(`https://api.discogs.com/database/search?q=${search}&token=qALItICfHYUDyaIegejpMxJlRDjVmjxBxfkwgbCi&page=${page}`)
-    return response.data
-    } catch (error) {
-        console.log(error)
-    }
+    return response.data.results
 })
 
 const appSlice = createSlice({

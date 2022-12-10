@@ -14,12 +14,13 @@ const Search = () => {
   const dispatch = useDispatch();
   const { albums, isLoading, error, search, page } = useSelector((state) => state.app);
   console.log(albums);
-  console.log(albums.results);
+  console.log(search);
 
 
   useEffect(() => {
     dispatch(fetchAlbums());
   }, [dispatch, search, page]);
+
 
   const onChange = (e) => {
     dispatch(setSearch(e.target.value));
@@ -49,7 +50,7 @@ const Search = () => {
     <Stack direction="row" spacing={2}>
       <Box sx={{ flexGrow: 1 }}>
       <SearchAuto onChange={onChange}/>
-        {Object.values(albums).map((album) => {
+        {albums.map((album) => {
           <ClickModal key={album.id} album={album}/>;
           <AlbumsCards key={album.id} album={album} />;
         })}
