@@ -6,6 +6,7 @@ export const fetchAlbums = createAsyncThunk('app/fetchAlbums', async (search,pag
     return response.data.results
 })
 
+
 const appSlice = createSlice({
     name: 'app',
     initialState: {

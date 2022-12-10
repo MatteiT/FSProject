@@ -9,7 +9,7 @@ export const AlbumsCards = (album) => {
     return (
         <>
       <section className="results">
-        <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1 }} >
           <Grid container spacing={0.5} >
             <Card 
                 key={album.id}

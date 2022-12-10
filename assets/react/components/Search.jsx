@@ -27,29 +27,13 @@ const Search = () => {
   };
 
 
-  if (isLoading) {
-    return (
-      <>
-      <SearchAuto onChange={onChange} />
-      <div>Loading...</div>;
-      </>
-    );
-  }
-
-  if(error) {
-    return (
-      <>
-      <SearchAuto onChange={onChange} />
-      <div>Something went wrong...</div>;
-      </>
-    );
-  }
-
   return (
     <>
     <Stack direction="row" spacing={2}>
       <Box sx={{ flexGrow: 1 }}>
       <SearchAuto onChange={onChange}/>
+      {isLoading && <div>Loading...</div>}
+      {!isLoading && error ? <div>{error}</div> : null}
         {albums.map((album) => {
           <ClickModal key={album.id} album={album}/>;
           <AlbumsCards key={album.id} album={album} />;
