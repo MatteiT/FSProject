@@ -47,12 +47,14 @@ const Search = () => {
   return (
     <>
     <Stack direction="row" spacing={2}>
+      <Box sx={{ flexGrow: 1 }}>
       <SearchAuto onChange={onChange}/>
         {Object.values(albums).map((album) => {
           <ClickModal key={album.id} album={album}/>;
           <AlbumsCards key={album.id} album={album} />;
         })}
-      <Pagination page={page} setPage={setPage} />
+      <Pagination page={page} setPage={setPage} margin={3} />
+      </Box>
     </Stack>
     </>
   );
