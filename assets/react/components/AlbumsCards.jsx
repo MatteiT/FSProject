@@ -6,18 +6,13 @@ import { Card, CardMedia, Typography, Box, Chip, Button, Grid } from '@mui/mater
 export const AlbumsCards = (album) => {
     const urlDiscogs = 'https://api.discogs.com/artists/';
 
-    const handleModal = (album) => {
-        console.log(album);
-    }
-
     return (
         <>
       <section className="results">
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={0.5} >
             <Card 
-                // onMouseEnter={() => console.log(album)}
-                // onMouseLeave={() => console.log(album)}
+                key={album.id}
                 variant='outlined'
                 height='300px' 
                 width='300px'
@@ -46,8 +41,7 @@ export const AlbumsCards = (album) => {
                     >
                     <a href={`${urlDiscogs}${album.id}`}>view on Discogs</a>
                     </Button>
-                    // create a button that open a modal with the album details
-                    <Button variant="contained" size='small' onClick={() => handleModal(album)}>More</Button>
+                    <Button variant="contained" size='small'>More</Button>
                     <br/> 
                     <Button  variant="contained"  size='small' color="error"  >Add </Button>
                     <Button variant="contained"  size='small' >Delete</Button> 

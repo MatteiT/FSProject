@@ -1,20 +1,25 @@
 import React from 'react';
 import {useEffect} from 'react';
 import { Stack } from '@mui/system';
-import { useDispatch, useSelector} from 'react-redux';
+import { connect, useDispatch, useSelector} from 'react-redux';
 import { fetchAlbums, setPage, setSearch} from '../features/AppSlice';
 import AlbumsCards from './AlbumsCards';
 import Pagination from './Pagination';
 import SearchAuto from './SearchAuto';
 import ClickModal from './ClickModal';
+import { Box } from '@mui/material';
 
-export default Search = () => {
+
+const Search = () => {
   const dispatch = useDispatch();
-  // const {albums, search, isLoading, page, error } = useSelector((state) => state.app);
+  const { albums, isLoading, error, search, page } = useSelector((state) => state.app);
+  console.log(albums);
+  console.log(albums.results);
+
 
   useEffect(() => {
     dispatch(fetchAlbums());
-  }, [ dispatch, state.app.search, app.state.page ]);
+  }, [dispatch, search, page]);
 
   const onChange = (e) => {
     dispatch(setSearch(e.target.value));
@@ -24,7 +29,7 @@ export default Search = () => {
   if (isLoading) {
     return (
       <>
-      <SearchAuto />
+      <SearchAuto onChange={onChange} />
       <div>Loading...</div>;
       </>
     );
@@ -33,29 +38,44 @@ export default Search = () => {
   if(error) {
     return (
       <>
-      <SearchAuto />
+      <SearchAuto onChange={onChange} />
       <div>Something went wrong...</div>;
       </>
     );
   }
 
-
   return (
     <>
     <Stack direction="row" spacing={2}>
-      <SearchAuto albums={albums} onChange={onChange}  />
-          {this.props.albums.map((album) => (
-            <>
-            <ClickModal key={album.id}/>
-            <AlbumsCards key={album.id}/>
-            </>
-          ))}
-          <Pagination/>
+      <SearchAuto onChange={onChange}/>
+        {Object.values(albums).map((album) => {
+          <ClickModal key={album.id} album={album}/>;
+          <AlbumsCards key={album.id} album={album} />;
+        })}
+      <Pagination page={page} setPage={setPage} />
     </Stack>
     </>
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    albums: state.app.albums,
+    isLoading: state.app.isLoading,
+    error: state.app.error,
+    search: state.app.search,
+    page: state.app.page,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchAlbums: () => dispatch(fetchAlbums()),
+    setSearch: (search) => dispatch(setSearch(search)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
 
 
 

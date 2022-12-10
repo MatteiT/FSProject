@@ -13,8 +13,7 @@ import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { themeSettings } from './theme/theme';
 
-
-function App() {
+export default function App() {
 
   const mode = useSelector((state) => state.theme.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -37,23 +36,3 @@ function App() {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    albums: state.app.albums,
-    search: state.app.search,
-    isLoading: state.app.isLoading,
-    page: state.app.page,
-    error: state.app.error
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchAlbums: () => dispatch(fetchAlbums()),
-    setPage: (page) => dispatch(setPage(page)),
-    setSearch: (search) => dispatch(setSearch(search))
-  }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -2,9 +2,14 @@
 import React from "react";
 import { Box, TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
+import { useSelector } from "react-redux";
 
 
-const SearchAuto = (albums, {onChange}) => {
+
+
+
+const SearchAuto = ({onChange}) => {
+    const { albums } = useSelector((state) => state.app);
 
     return (
 <section className="search">
@@ -16,7 +21,11 @@ const SearchAuto = (albums, {onChange}) => {
         clearOnBlur
         handleHomeEndKeys
         autoHighlight
-        options={state.app.albums.map((option) => option.title)}
+        options={
+            Object.values(albums).map((album) => {
+                return album.title;
+            })
+        }
         renderInput={(params) => (
             <TextField
                 {...params}
