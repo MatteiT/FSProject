@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { Card, CardMedia, Typography, Box, Chip, Button, Grid } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setModal } from '../features/ModalSlice';
 import ClickModal from './ClickModal';
+
+
 
 export const AlbumsCards = () => {
     const urlDiscogs = 'https://www.discogs.com';
     const {albums}  = useSelector((state) => state.app);
-    const [isOpen, setisOpen] = useState(false);
-    const [modal, setModal] = useState(null);
 
+        const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
-
-    const handleOpen = (id) => {
-        setModal(id);
-        setisOpen(true);
-    };
+    const dispatch = useDispatch();
+    const handleModal = (album) => dispatch(setModal(album));
 
 
     return (
@@ -50,20 +51,24 @@ export const AlbumsCards = () => {
                         ))}
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'center'  }}>
-
                     <Button variant="contained" size='small'
                     >
                     <a href={`${urlDiscogs}${album.uri}`}target="_blank" rel="noreferrer">view on Discogs</a>
                     </Button>
-                    <Button variant="contained" size='small' onClick={() => handleOpen(album.id)}>More</Button>
-                    {isOpen && modal === album.id && <ClickModal album={album} />}
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleModal(album)}
+                  >
+                      View Details
+                  </Button>
                     <br/> 
                     <Button  variant="contained"  size='small' color="error"  >Add </Button>
                     <Button variant="contained"  size='small' >Delete</Button> 
-
                     </Box>
                 </Card>
               ))}
+              <ClickModal />
           </Grid>
         </Box>
       </section>

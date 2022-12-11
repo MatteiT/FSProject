@@ -2,11 +2,10 @@ import React from 'react';
 import {useEffect} from 'react';
 import { Stack } from '@mui/system';
 import { connect, useDispatch, useSelector} from 'react-redux';
-import { fetchAlbums, setPage, setSearch} from '../features/AppSlice';
+import { fetchAlbums, setSearch} from '../features/AppSlice';
 import AlbumsCards from './AlbumsCards';
 import Pagination from './Pagination';
 import SearchAuto from './SearchAuto';
-import ClickModal from './ClickModal';
 import { Box } from '@mui/material';
 
 
