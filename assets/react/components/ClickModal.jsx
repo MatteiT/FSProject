@@ -1,19 +1,18 @@
+
 import React from 'react';
-import { Modal, Box, Typography } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { setModal } from '../features/ModalSlice';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Box } from '@mui/material';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+
+const ClickModal = () => {
+const [isOpen, setIsOpen] = useState(false);
+const { album } = useSelector((state) => state.app);
 
 
-const ClickModal  = () => {
-  const dispatch = useDispatch();
-  const { album } = useSelector((state) => state.app);
-  const { modal, isOpen } = useSelector((state) => state.modal);
+const handleClose = () => setIsOpen(false);
 
-  const handleClose = () => {
-    dispatch(setModal({modal: null, isOpen: false}));
-  };
-
-  
 const style = {
     position: 'absolute',
     top: '50%',

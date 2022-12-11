@@ -15,8 +15,6 @@ const Nav = () => {
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.theme.mode);
 
-
-
   return (
     <>
           <AppBar position="static">
@@ -28,10 +26,10 @@ const Nav = () => {
                 <NavLink to="/search">Search</NavLink>
               </Box>
               <Box variant='outline' sx={{ flexGrow: 1 }}>
-                <NavLink to="/about">About</NavLink>
+                <NavLink to="/collection">Collection</NavLink>
               </Box>
               <Box variant='outline' sx={{ flexGrow: 1 }}>
-                <NavLink to="/collection">Collection</NavLink>
+                <NavLink to="/about">About</NavLink>
               </Box>
               <Switch
                 onChange={() => dispatch(setMode())}

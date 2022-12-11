@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardMedia, Typography, Box, Chip, Button, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { setModal, } from '../features/ModalSlice';
 import ClickModal from './ClickModal';
 
 export const AlbumsCards = () => {
-    const urlDiscogs = 'https://api.discogs.com/artists/';
+    const urlDiscogs = 'https://www.discogs.com';
     const {albums}  = useSelector((state) => state.app);
-    const {modal, isOpen } = useSelector((state) => state.modal);
+    const [isOpen, setisOpen] = useState(false);
+    const [modal, setModal] = useState(null);
 
 
-    const handleModal = (album) => {
-        setModal(album);
+
+    const handleOpen = (id) => {
+        setModal(id);
+        setisOpen(true);
     };
-
 
 
     return (
@@ -49,14 +50,17 @@ export const AlbumsCards = () => {
                         ))}
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'center'  }}>
+
                     <Button variant="contained" size='small'
                     >
-                    <a href={`${urlDiscogs}${album.id}`}>view on Discogs</a>
+                    <a href={`${urlDiscogs}${album.uri}`}target="_blank" rel="noreferrer">view on Discogs</a>
                     </Button>
-                    <Button variant="contained" size='small' onClick={() => handleModal(album) }>View</Button>
+                    <Button variant="contained" size='small' onClick={() => handleOpen(album.id)}>More</Button>
+                    {isOpen && modal === album.id && <ClickModal album={album} />}
                     <br/> 
                     <Button  variant="contained"  size='small' color="error"  >Add </Button>
                     <Button variant="contained"  size='small' >Delete</Button> 
+
                     </Box>
                 </Card>
               ))}

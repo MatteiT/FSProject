@@ -4,13 +4,9 @@ import { Box, TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useSelector } from "react-redux";
 
-
-
-
-
 const SearchAuto = ({onChange}) => {
     const { albums } = useSelector((state) => state.app);
-
+    
     return (
 <section className="search">
 <Box sx={{ flexGrow: 1 }}>
@@ -22,9 +18,7 @@ const SearchAuto = ({onChange}) => {
         handleHomeEndKeys
         autoHighlight
         options={
-            Object.values(albums).map((album) => {
-                return album.title;
-            })
+            albums.map((option) => option.title)
         }
         renderInput={(params) => (
             <TextField

@@ -34,7 +34,7 @@ const Search = () => {
       <SearchAuto onChange={onChange}/>
       {isLoading && <div>Loading...</div>}
       {!isLoading && error ? <div>{error}</div> : null}
-      {!isLoading && !error ?  <AlbumsCards/>: null }
+      {!isLoading && !error ? <AlbumsCards/>: null }
       <Pagination  />
       </Box>
     </Stack>
