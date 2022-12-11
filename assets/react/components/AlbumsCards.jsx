@@ -1,19 +1,18 @@
-// do a Card component to use un Search 
-
 import React from 'react';
 import { Card, CardMedia, Typography, Box, Chip, Button, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { setModal } from '../features/AppSlice';
-
+import { setModal, } from '../features/ModalSlice';
+import ClickModal from './ClickModal';
 
 export const AlbumsCards = () => {
     const urlDiscogs = 'https://api.discogs.com/artists/';
     const {albums}  = useSelector((state) => state.app);
+    const {modal, isOpen } = useSelector((state) => state.modal);
 
-  // create a function to open the modal and pass the album id to the modal
-  const openModal = (id) => {
-    setModal(id);
-  };
+
+    const handleModal = (album) => {
+        setModal(album);
+    };
 
 
 
@@ -54,7 +53,7 @@ export const AlbumsCards = () => {
                     >
                     <a href={`${urlDiscogs}${album.id}`}>view on Discogs</a>
                     </Button>
-                    <Button variant="contained" size='small' onClick={() => handleModal(album.id)}>View</Button>
+                    <Button variant="contained" size='small' onClick={() => handleModal(album) }>View</Button>
                     <br/> 
                     <Button  variant="contained"  size='small' color="error"  >Add </Button>
                     <Button variant="contained"  size='small' >Delete</Button> 

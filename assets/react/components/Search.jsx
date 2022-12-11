@@ -21,7 +21,7 @@ const Search = () => {
     dispatch(fetchAlbums(search, page));
   }, [dispatch, search, page]);
 
-  
+
   const onChange = (e) => {
     dispatch(setSearch(e.target.value));
   };
@@ -34,14 +34,8 @@ const Search = () => {
       <SearchAuto onChange={onChange}/>
       {isLoading && <div>Loading...</div>}
       {!isLoading && error ? <div>{error}</div> : null}
-      {!isLoading && !error ? 
-          <>
-          <ClickModal/>;
-          <AlbumsCards/>;
-          </>
-          : null }
-  
-      <Pagination page={page} setPage={setPage} margin={3} />
+      {!isLoading && !error ?  <AlbumsCards/>: null }
+      <Pagination  />
       </Box>
     </Stack>
     </>

@@ -1,14 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const fetchAlbums = createAsyncThunk('app/fetchAlbums', async (search, page,id) => {
-    if(id===null){
+export const fetchAlbums = createAsyncThunk('app/fetchAlbums', async (search, page) => {
     const response = await axios.get(`https://api.discogs.com/database/search?q=${search}&token=qALItICfHYUDyaIegejpMxJlRDjVmjxBxfkwgbCi&page=${page}`)
     return response.data.results
-    }else{
-    const response = await axios.get(`https://api.discogs.com/database/search?q=${search}&${id}&token=qALItICfHYUDyaIegejpMxJlRDjVmjxBxfkwgbCi&page=${page}`)
-    return response.data.results
-    }
 })
 
 
@@ -20,7 +15,6 @@ const appSlice = createSlice({
         albums: [],
         id:null,
         hoover: false,
-        modal: false,
         isLoading: false,
         hasErrors: false,
     },  
@@ -37,15 +31,12 @@ const appSlice = createSlice({
         setHoover: (state, action) => {
             state.hoover = action.payload
         },
-        setModal: (state, action) => {
-            state.modal = action.payload
-        },
         setSearch: (state, action) => {
             state.search = action.payload
         },
         setId: (state, action) => {
             state.id = action.payload
-        }
+        },
 
     },
     extraReducers: (builder) => {
@@ -65,9 +56,10 @@ const appSlice = createSlice({
     }
 })
 
+export const { setSearch, setPage, setAlbums, setHoover, setId } = appSlice.actions
 
-export const { setSearch, setPage, setAlbums, setHoover, setModal, setId } = appSlice.actions
 export const appSelector = (state) => state.app
+
 export default appSlice.reducer
 
 

@@ -1,16 +1,16 @@
 import React from 'react';
-import { Modal, Button, Box, Typography } from '@mui/material';
+import { Modal, Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setModal } from '../features/AppSlice';
+import { setModal } from '../features/ModalSlice';
+
 
 const ClickModal  = () => {
   const dispatch = useDispatch();
-  const {albums,id} = useSelector((state) => state.app.albums);
-  const album = albums[id];
-
+  const { album } = useSelector((state) => state.app);
+  const { modal, isOpen } = useSelector((state) => state.modal);
 
   const handleClose = () => {
-    dispatch(setModal(false));
+    dispatch(setModal({modal: null, isOpen: false}));
   };
 
   
@@ -29,7 +29,7 @@ const style = {
 return (
 <div>
     <Modal
-        open={true}
+        open={isOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -59,7 +59,6 @@ return (
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 {album.format}
             </Typography>
-
         </Box>
     </Modal>
 </div>
