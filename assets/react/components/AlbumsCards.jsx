@@ -2,15 +2,28 @@
 
 import React from 'react';
 import { Card, CardMedia, Typography, Box, Chip, Button, Grid } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { setModal } from '../features/AppSlice';
 
-export const AlbumsCards = (album) => {
+
+export const AlbumsCards = () => {
     const urlDiscogs = 'https://api.discogs.com/artists/';
+    const {albums}  = useSelector((state) => state.app);
+
+  // create a function to open the modal and pass the album id to the modal
+  const openModal = (id) => {
+    setModal(id);
+  };
+
+
 
     return (
         <>
       <section className="results">
             <Box sx={{ flexGrow: 1 }} >
-          <Grid container spacing={0.5} >
+          <Grid container spacing={0.5} justifyContent="center" alignItems="center">
+            {albums &&
+              albums.map((album) => (
             <Card 
                 key={album.id}
                 variant='outlined'
@@ -41,12 +54,13 @@ export const AlbumsCards = (album) => {
                     >
                     <a href={`${urlDiscogs}${album.id}`}>view on Discogs</a>
                     </Button>
-                    <Button variant="contained" size='small'>More</Button>
+                    <Button variant="contained" size='small' onClick={() => handleModal(album.id)}>View</Button>
                     <br/> 
                     <Button  variant="contained"  size='small' color="error"  >Add </Button>
                     <Button variant="contained"  size='small' >Delete</Button> 
                     </Box>
                 </Card>
+              ))}
           </Grid>
         </Box>
       </section>

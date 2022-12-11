@@ -1,9 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const fetchAlbums = createAsyncThunk('app/fetchAlbums', async (search,page) => {
+export const fetchAlbums = createAsyncThunk('app/fetchAlbums', async (search, page,id) => {
+    if(id===null){
     const response = await axios.get(`https://api.discogs.com/database/search?q=${search}&token=qALItICfHYUDyaIegejpMxJlRDjVmjxBxfkwgbCi&page=${page}`)
     return response.data.results
+    }else{
+    const response = await axios.get(`https://api.discogs.com/database/search?q=${search}&${id}&token=qALItICfHYUDyaIegejpMxJlRDjVmjxBxfkwgbCi&page=${page}`)
+    return response.data.results
+    }
 })
 
 
@@ -13,6 +18,7 @@ const appSlice = createSlice({
         search: 'Daft Punk',
         page: 1,
         albums: [],
+        id:null,
         hoover: false,
         modal: false,
         isLoading: false,
@@ -37,6 +43,9 @@ const appSlice = createSlice({
         setSearch: (state, action) => {
             state.search = action.payload
         },
+        setId: (state, action) => {
+            state.id = action.payload
+        }
 
     },
     extraReducers: (builder) => {
@@ -57,7 +66,7 @@ const appSlice = createSlice({
 })
 
 
-export const { setSearch, setPage, setAlbums, setHoover, setModal } = appSlice.actions
+export const { setSearch, setPage, setAlbums, setHoover, setModal, setId } = appSlice.actions
 export const appSelector = (state) => state.app
 export default appSlice.reducer
 

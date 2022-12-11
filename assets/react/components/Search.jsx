@@ -18,10 +18,10 @@ const Search = () => {
 
 
   useEffect(() => {
-    dispatch(fetchAlbums());
+    dispatch(fetchAlbums(search, page));
   }, [dispatch, search, page]);
 
-
+  
   const onChange = (e) => {
     dispatch(setSearch(e.target.value));
   };
@@ -34,10 +34,13 @@ const Search = () => {
       <SearchAuto onChange={onChange}/>
       {isLoading && <div>Loading...</div>}
       {!isLoading && error ? <div>{error}</div> : null}
-        {albums.map((album) => {
-          <ClickModal key={album.id} album={album}/>;
-          <AlbumsCards key={album.id} album={album} />;
-        })}
+      {!isLoading && !error ? 
+          <>
+          <ClickModal/>;
+          <AlbumsCards/>;
+          </>
+          : null }
+  
       <Pagination page={page} setPage={setPage} margin={3} />
       </Box>
     </Stack>
