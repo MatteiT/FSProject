@@ -19,10 +19,10 @@ const Nav = () => {
     <>
           <AppBar position="static">
             <Toolbar>
-              <Box variant='outline' sx={{ flexGrow: 1 }}>
+              <Box variant='outline'sx={{ flexGrow: 1 }}>
                 <NavLink to="/">Home</NavLink>
               </Box>
-            <Box variant='outline' sx={{ flexGrow: 1 }}>
+              <Box variant='outline' sx={{ flexGrow: 1 }}>
                 <NavLink to="/search">Search</NavLink>
               </Box>
               <Box variant='outline' sx={{ flexGrow: 1 }}>
@@ -38,7 +38,8 @@ const Nav = () => {
                 checkedIcon={<ModeNightIcon />}
               />
             </Toolbar>
-          </AppBar>    </>
+          </AppBar>   
+      </>
   );
 };
 

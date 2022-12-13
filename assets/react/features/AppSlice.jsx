@@ -6,17 +6,16 @@ export const fetchAlbums = createAsyncThunk('app/fetchAlbums', async (search, pa
     return response.data.results
 })
 
-
 const appSlice = createSlice({
     name: 'app',
     initialState: {
         search: 'Daft Punk',
         page: 1,
         albums: [],
-        id:null,
         hoover: false,
         isLoading: false,
         hasErrors: false,
+        selectedTab: 0,
     },  
     reducers: {
         setSearch: (state, action) => {
@@ -34,10 +33,19 @@ const appSlice = createSlice({
         setSearch: (state, action) => {
             state.search = action.payload
         },
-        setId: (state, action) => {
-            state.id = action.payload
+        setSelectedTab: (state, action) => {
+            state.selectedTab = action.payload;
+            if(state.selectedTab === 0){
+                state.albums = state.albums
+            } else if(state.selectedTab === 1){
+                state.albums = state.albums.filter(album => album.type === 'artist')
+            }else if(state.selectedTab === 2){
+                state.albums = state.albums.filter(album => album.type === 'release')
+            }else if(state.selectedTab === 3){
+                state.albums = state.albums.filter(album => album.type === 'genre')
+            }
+            
         },
-
     },
     extraReducers: (builder) => {
         builder
@@ -56,11 +64,13 @@ const appSlice = createSlice({
     }
 })
 
-export const { setSearch, setPage, setAlbums, setHoover, setId } = appSlice.actions
 
+
+export const { setSearch, setPage, setAlbums, setHoover, setSelectedTab } = appSlice.actions
 export const appSelector = (state) => state.app
-
 export default appSlice.reducer
+
+
 
 
 

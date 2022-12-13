@@ -1,38 +1,54 @@
-// Description: Search bar for albums and artists using the Autocomplete component from Material UI for using in Search.jsx
-import React from "react";
-import { Box, TextField } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Grid, Tab, Tabs, TextField } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedTab } from "../features/AppSlice";
+
+
 
 const SearchAuto = ({onChange}) => {
     const { albums } = useSelector((state) => state.app);
-    
+    const [value, setValue] = useState(0);
+    const dispatch = useDispatch();
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+        dispatch(setSelectedTab(newValue));
+    };
+
     return (
-<section className="search">
-<Box sx={{ flexGrow: 1 }}>
-    <Autocomplete
-        id="search_freesolo"
-        freeSolo
-        selectOnFocus
-        clearOnBlur
-        handleHomeEndKeys
-        autoHighlight
-        options={
-            albums.map((option) => option.title)
-        }
-        renderInput={(params) => (
-            <TextField
-                {...params}
-                label="Search input"
-                autoFocus={true}
-                placeholder="Search for an album or artist here ..."
-                variant="outlined"
-                onChange={onChange}
-            />
-        )}
-    />
-</Box>
-    </section>
+        <>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid margin={3} justifyContent={"center"} alignItems={"center"} >
+                    <Autocomplete
+                        id="search_freesolo"
+                        freeSolo
+                        selectOnFocus
+                        clearOnBlur
+                        handleHomeEndKeys
+                        autoHighlight
+                        options={albums.map((option) => option.title)}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Search input"
+                                autoFocus={true}
+                                placeholder="Search for an album or artist here ..."
+                                variant="outlined"
+                                onChange={onChange}
+                            />
+                        )}
+                    />
+                    <Tabs value={value} onChange={handleChange} >
+                        <Tab label="All" name='all' />
+                        <Tab label="Artist" name="artist"  />
+                        <Tab label="Album" name="album" />
+                        <Tab label="Genre"  name="genre" />
+                    </Tabs>
+
+                </Grid>
+            </Box>
+        </>
     );
 }
 
